@@ -2,6 +2,8 @@ cache
 bzImage
 src/overlay/usr/bin/sdhcp
 src/overlay/usr/bin/oksh
+src/carl-exit/carl-exit
+src/dumb-init/dumb-init
 src/overlay/carl-exit
 src/overlay/dumb-init
 src/overlay/usr/bin/dbclient

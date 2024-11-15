@@ -7,6 +7,8 @@ mkdir -p "${OUTPUTPATH}"
 ./build/scripts/dumb-init.sh
 ./build/scripts/carl-exit.sh
 ./build/scripts/rootfs.sh
+
+export CURRENTKERNELCONFIG=${KERNELBOOTSTRAPCONFIG}
 ./build/scripts/kernel.sh
 
 qemu-system-x86_64 \
@@ -24,3 +26,7 @@ qemu-system-x86_64 \
     -nic user,model=virtio-net-pci \
     -virtfs local,path=${INPUTPATH},mount_tag=host0,security_model=none,id=host0 \
     -virtfs local,path=${OUTPUTPATH},mount_tag=host1,security_model=none,id=host1
+
+export CURRENTKERNELCONFIG=${KERNELCONFIG}
+./build/scripts/kernel.sh
+
