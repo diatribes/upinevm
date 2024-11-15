@@ -4,6 +4,8 @@ cd "${CACHEPATH}"
 mkdir -p rootfs
 cd rootfs
 tar xvf ../alpine-rootfs.tar.gz
+mkdir -p "${SRCPATH}/overlay/usr/bin"
+cp -v "${CACHEPATH}/sdhcp/sdhcp" "${SRCPATH}/overlay/usr/bin/sdhcp"
 cp -v "${SRCPATH}/dumb-init/dumb-init" "${SRCPATH}/overlay"
 cp -v "${SRCPATH}/carl-exit/carl-exit" "${SRCPATH}/overlay"
 cp -r ${SRCPATH}/overlay/* .
