@@ -1,12 +1,17 @@
 #!/bin/bash
 source config.sh
 
+sudo /usr/lib/virtiofsd --socket-path=/var/run/qemu-vm-001.sock \
+    --shared-dir /tmp/vm-001 --cache always &
+
+sudo chgrp kvm /var/run/qemu-vm-001.sock
+sudo chmod g+rxw /var/run/qemu-vm-001.sock
+
 qemu-system-x86_64 \
     -display none \
     -no-reboot \
     -no-user-config \
     -nodefaults \
-    -M microvm \
     -cpu host \
     -enable-kvm \
     -m ${RUNMEM} \
@@ -15,6 +20,8 @@ qemu-system-x86_64 \
     -nographic \
     -serial none -device isa-serial,chardev=s1 \
     -chardev stdio,id=s1,signal=off \
-    -append "panic=-1 notsc" \
-    -initrd "${OUTPUTPATH}"/rootfs-new.cpio
+    -append "notsc" \
+    -initrd "${OUTPUTPATH}"/rootfs-new.cpio \
+    -virtfs local,path=/tmp/shared,mount_tag=myfs,security_model=none,id=fs0 \
+    -device virtio-mmio,addr=0x1000,fsdev=fs0,mount_tag=myfs 
 
