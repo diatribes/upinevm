@@ -27,10 +27,12 @@ mount -t 9p -o trans=virtio host1 /mnt/output
 # 1st boot, install packages and write cpio
 # 2nd+ boot, start shell
 if [ -f "/etc/firstboot.sh" ]; then
+    chmod +x /etc/firstboot.sh
     /etc/firstboot.sh
     rm -f /etc/firstboot.sh
 else
     if [ -f "/mnt/input/run.sh" ]; then
+        chmod +x /mnt/input/run.sh
         /mnt/input/run.sh
     else
         # we are not creating a cpio, and no run.sh,  just boot to sh
