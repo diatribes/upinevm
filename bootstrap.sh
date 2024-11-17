@@ -8,7 +8,12 @@ if [ -n "$UPINEVM_OUTPUTPATH" ]; then
     OUTPUTPATH="$UPINEVM_OUTPUTPATH"
 fi
 
+if [ -n "$UPINEVM_CACHEPATH" ]; then
+    CACHEPATH="$UPINEVM_CACHEPATH"
+fi
+
 : "${OUTPUTPATH:?OUTPUTPATH must be set}"
+: "${CACHEPATH:?CACHEPATH must be set}"
 
 mkdir -pv "${CACHEPATH}"
 mkdir -pv "${OUTPUTPATH}"
