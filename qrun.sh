@@ -1,5 +1,5 @@
 #!/bin/sh
-source config.sh
+. ./config.sh
 
 sudo /usr/lib/virtiofsd --socket-path=/var/run/qemu-vm-001.sock \
     --shared-dir /tmp/vm-001 --cache always &

@@ -1,5 +1,5 @@
 #!/bin/sh
-source config.sh
+. ./config.sh
 mkdir -p "${CACHEPATH}"
 mkdir -p "${OUTPUTPATH}"
 
