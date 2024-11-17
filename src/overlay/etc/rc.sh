@@ -16,35 +16,31 @@ ifconfig eth0 up
 sdhcp
 echo
 
+# mount input
+mkdir -pv /mnt/input
+mount -t 9p -o trans=virtio host0 /mnt/input
+
+# mount output
+mkdir -pv /mnt/output
+mount -t 9p -o trans=virtio host1 /mnt/output
+
 # 1st boot, install packages and write cpio
 # 2nd+ boot, start shell
-if [ ! -f "/etc/firstboot" ]; then
-
-    # flag firstboot
-	touch /etc/firstboot
-
-    # mount input
-    mkdir -pv /mnt/input
-    mount -t 9p -o trans=virtio host0 /mnt/input
-
-    # mount output
-    mkdir -pv /mnt/output
-    mount -t 9p -o trans=virtio host1 /mnt/output
-
-    # update and upgrade
-	apk update
-	apk upgrade
-
-    # install packages
-	apk add `cat /mnt/input/packages.conf`
-
-    # write cpio and exit
-	chmod +x /mnt/input/write-cpio.sh
-	/mnt/input/write-cpio.sh
+if [ -f "/etc/firstboot.sh" ]; then
+    /etc/firstboot.sh
+    rm -f /etc/firstboot.sh
 else
-    # we are not creating a cpio, just boot to sh
-	cd
-	/bin/sh
+    if [ -f "/mnt/input/run.sh" ]; then
+        /mnt/input/run.sh
+    else
+        # we are not creating a cpio, and no run.sh,  just boot to sh
+        # check term interactive
+        if [ -t 0 ]; then
+            cd
+            /bin/sh
+        fi
+    fi
+    
 fi
 
 /carl-exit
