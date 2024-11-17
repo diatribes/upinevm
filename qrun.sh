@@ -1,12 +1,6 @@
 #!/bin/sh
 . ./config.sh
 
-sudo /usr/lib/virtiofsd --socket-path=/var/run/qemu-vm-001.sock \
-    --shared-dir /tmp/vm-001 --cache always &
-
-sudo chgrp kvm /var/run/qemu-vm-001.sock
-sudo chmod g+rxw /var/run/qemu-vm-001.sock
-
 qemu-system-x86_64 \
     -display none \
     -no-reboot \
@@ -21,7 +15,5 @@ qemu-system-x86_64 \
     -serial none -device isa-serial,chardev=s1 \
     -chardev stdio,id=s1,signal=off \
     -append "notsc" \
-    -initrd "${OUTPUTPATH}"/rootfs-new.cpio \
-    -virtfs local,path=/tmp/shared,mount_tag=myfs,security_model=none,id=fs0 \
-    -device virtio-mmio,addr=0x1000,fsdev=fs0,mount_tag=myfs 
+    -initrd "${OUTPUTPATH}"/rootfs-new.cpio
 
