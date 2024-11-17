@@ -39,6 +39,8 @@ qemu-system-x86_64 \
     -nodefaults \
     -m ${INSTALLMEM} \
     -kernel "${OUTPUTPATH}/bzImage" \
+    -cpu host \
+    -enable-kvm \
     -nographic \
     -serial none -device isa-serial,chardev=s1 \
     -chardev stdio,id=s1,signal=off \
