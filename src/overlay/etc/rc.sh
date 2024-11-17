@@ -11,11 +11,6 @@ echo
 echo $(uname -a)
 echo
 
-# dhcp
-ifconfig eth0 up
-sdhcp
-echo
-
 # mount input
 mkdir -pv /mnt/input
 mount -t 9p -o trans=virtio host0 /mnt/input
@@ -27,9 +22,13 @@ mount -t 9p -o trans=virtio host1 /mnt/output
 # 1st boot, install packages and write cpio
 # 2nd+ boot, start shell
 if [ -f "/etc/firstboot.sh" ]; then
+    # dhcp
+    ifconfig eth0 up
+    sdhcp
+    echo
+
     chmod +x /etc/firstboot.sh
     /etc/firstboot.sh
-    rm -f /etc/firstboot.sh
 else
     if [ -f "/mnt/input/run.sh" ]; then
         chmod +x /mnt/input/run.sh
@@ -45,4 +44,5 @@ else
     
 fi
 
+echo "carl signing off"
 /carl-exit
