@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 source config.sh
 
 sudo /usr/lib/virtiofsd --socket-path=/var/run/qemu-vm-001.sock \

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 source config.sh
 mkdir -p "${CACHEPATH}"
 mkdir -p "${OUTPUTPATH}"
