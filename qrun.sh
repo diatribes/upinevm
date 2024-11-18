@@ -10,7 +10,7 @@ qemu-system-x86_64 \
     -enable-kvm \
     -m ${RUNMEM} \
     -device isa-debug-exit,iobase=0x604,iosize=0x04 \
-    -kernel "${OUTPUTPATH}"/bzImage \
+    -kernel "${OUTPUTPATH}"/bzImage-new \
     -nographic \
     -serial none -device isa-serial,chardev=s1 \
     -chardev stdio,id=s1,signal=off \
