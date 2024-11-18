@@ -7,4 +7,4 @@ if [ ! -d "linux-${KERNELVER}" ]; then
 fi
 cd "linux-${KERNELVER}"
 cp "${CURRENTKERNELCONFIG}" .config
-make -j$(nproc) && cp arch/x86/boot/bzImage "${OUTPUTPATH}"/bzImage
+make -j$(nproc) && cp arch/x86/boot/bzImage "${OUTPUTPATH}/${CURRENTKERNELFILENAME}"

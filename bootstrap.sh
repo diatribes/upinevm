@@ -24,6 +24,7 @@ mkdir -pv "${OUTPUTPATH}"
 ./build/scripts/rootfs.sh
 
 export CURRENTKERNELCONFIG=${KERNELBOOTSTRAPCONFIG}
+export CURRENTKERNELFILENAME="bzImage"
 ./build/scripts/kernel.sh
 
 # Exit early if UPINEVM_NOLAUNCH is set
@@ -50,5 +51,6 @@ qemu-system-x86_64 \
     -virtfs local,path=${INPUTPATH},mount_tag=host0,security_model=none,id=host0 \
     -virtfs local,path=${OUTPUTPATH},mount_tag=host1,security_model=none,id=host1
 
+export CURRENTKERNELFILENAME="bzImage-new"
 export CURRENTKERNELCONFIG=${KERNELCONFIG}
 ./build/scripts/kernel.sh
