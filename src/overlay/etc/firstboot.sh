@@ -11,6 +11,7 @@ if [ -f /root/bin/write-cpio.sh ]; then
     apk add --no-cache `cat /mnt/input/packages.conf`
 
     # write cpio and exit
+    chown -R root:root / || true
     chmod +x /root/bin/write-cpio.sh
     /root/bin/write-cpio.sh
 else

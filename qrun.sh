@@ -15,5 +15,7 @@ qemu-system-x86_64 \
     -serial none -device isa-serial,chardev=s1 \
     -chardev stdio,id=s1,signal=off \
     -append "notsc" \
-    -initrd "${OUTPUTPATH}"/rootfs-new.cpio
+    -initrd "${OUTPUTPATH}"/rootfs-new.cpio \
+    -virtfs local,path=${INPUTPATH},mount_tag=host0,security_model=none,id=host0 \
+    -virtfs local,path=${OUTPUTPATH},mount_tag=host1,security_model=none,id=host1
 
