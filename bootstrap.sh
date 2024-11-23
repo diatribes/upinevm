@@ -23,9 +23,9 @@ mkdir -pv "${OUTPUTPATH}"
 ./build/scripts/carl-exit.sh
 sudo -E ./build/scripts/rootfs.sh
 
-if [ ! -f "${OUTPUTPATH}"/bzImage-new ]; then
-    echo "bzImage-new: not found, building..."
-    export CURRENTKERNELFILENAME="bzImage-new"
+if [ ! -f "${OUTPUTPATH}"/bzImage ]; then
+    echo "bzImage: not found, building..."
+    export CURRENTKERNELFILENAME="bzImage"
     export CURRENTKERNELCONFIG=${KERNELCONFIG}
     ./build/scripts/kernel.sh
 fi
