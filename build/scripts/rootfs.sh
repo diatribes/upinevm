@@ -16,8 +16,6 @@ cp -v "${CACHEPATH}/sdhcp/sdhcp" "${SRCPATH}/overlay/usr/bin/sdhcp"
 cp -v "${SRCPATH}/dumb-init/dumb-init" "${SRCPATH}/overlay"
 cp -v "${SRCPATH}/carl-exit/carl-exit" "${SRCPATH}/overlay"
 cp -r ${SRCPATH}/overlay/* "${CACHEPATH}"/rootfs
-chmod +x dumb-init
-chmod +x carl-exit
 
 cd "${CACHEPATH}"/rootfs
 find . | cpio -o -H newc > "${OUTPUTPATH}"/rootfs-new.cpio
