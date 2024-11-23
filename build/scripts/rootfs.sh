@@ -8,7 +8,12 @@ chmod +x ./apk.static
 
 # init rootfs
 mkdir -p "${CACHEPATH}"/rootfs
-./apk.static --arch x86_64 -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/main/ -U --allow-untrusted --root ./rootfs --initdb add alpine-base `cat "${SRCPATH}"/packages.conf`
+./apk.static --arch x86_64 \
+    -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/main/ \
+    -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/community/ \
+    -U --allow-untrusted \
+    --root ./rootfs --initdb \
+    add `cat ${SRCPATH}/packages.conf`
 
 # add custom files
 mkdir -p "${SRCPATH}/overlay/usr/bin"
