@@ -19,30 +19,19 @@ mount -t 9p -o trans=virtio host0 /mnt/input
 mkdir -pv /mnt/output
 mount -t 9p -o trans=virtio host1 /mnt/output
 
-# 1st boot, install packages and write cpio
-# 2nd+ boot, start shell
-if [ -f "/etc/firstboot.sh" ]; then
-    # dhcp
-    ifconfig eth0 up
-    sdhcp
-    echo
-
-    chmod +x /etc/firstboot.sh
-    /etc/firstboot.sh
+if [ -f "/mnt/input/run.sh" ]; then
+    chmod +x /mnt/input/run.sh
+    /mnt/input/run.sh
 else
-    if [ -f "/mnt/input/run.sh" ]; then
-        chmod +x /mnt/input/run.sh
-        /mnt/input/run.sh
+    # no run.sh, just boot to sh, if term interactive
+    if [ -t 0 ]; then
+        cd
+        /bin/sh
     else
-        # we are not creating a cpio, and no run.sh,  just boot to sh
-        # check term interactive
-        if [ -t 0 ]; then
-            cd
-            /bin/sh
-        fi
+        echo "no interactive term"
     fi
-    
 fi
+    
 
 echo "carl signing off"
 /carl-exit
