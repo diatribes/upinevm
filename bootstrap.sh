@@ -23,7 +23,8 @@ mkdir -pv "${OUTPUTPATH}"
 ./build/scripts/carl-exit.sh
 ./build/scripts/rootfs.sh
 
-if [ -n "${OUTPUTPATH}/bzImage" ]; then
+if [ ! -f "${OUTPUTPATH}"/bzImage ]; then
+    echo "bzImage: not found, building..."
     export CURRENTKERNELCONFIG=${KERNELBOOTSTRAPCONFIG}
     export CURRENTKERNELFILENAME="bzImage"
     ./build/scripts/kernel.sh
@@ -51,7 +52,8 @@ qemu-system-x86_64 \
     -virtfs local,path=${INPUTPATH},mount_tag=host0,security_model=none,id=host0 \
     -virtfs local,path=${OUTPUTPATH},mount_tag=host1,security_model=none,id=host1
 
-if [ -n "${OUTPUTPATH}/bzImage-new" ]; then
+if [ ! -f "${OUTPUTPATH}"/bzImage-new ]; then
+    echo "bzImage-new: not found, building..."
     export CURRENTKERNELFILENAME="bzImage-new"
     export CURRENTKERNELCONFIG=${KERNELCONFIG}
     ./build/scripts/kernel.sh
