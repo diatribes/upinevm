@@ -1,7 +1,7 @@
 Scripts that will generate a small kernel+alpine rootfs cpio that can be direct booted with qemu.
 
 * cd upinevm
-* vi ./build/input/packages.conf
+* vi ./src/packages.conf
 * ./bootstrap.sh
 * ./qrun.sh
 
