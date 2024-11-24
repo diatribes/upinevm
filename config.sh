@@ -7,4 +7,5 @@ export OUTPUTPATH="${OUTPUTPATH:-$(realpath ./run/output)}"
 export INPUTPATH="${INPUTPATH:-$(realpath ./run/input)}"
 export INSTALLMEM="${INSTALLMEM:-512M}"
 export RUNMEM="${RUNMEM:-512M}"
-export KERNELCONFIG="${KERNELCONFIG:-$(realpath ./src/kernel-configs/qemu-small-virtiofs-no-tcp)}"#!/bin/s
+export KERNELCONFIG="${KERNELCONFIG:-$(realpath ./src/kernel-configs/qemu-small-virtiofs-no-tcp)}"
+
