@@ -6,5 +6,5 @@ if [ ! -d "linux-${KERNELVER}" ]; then
     tar xvf "linux-${KERNELVER}.tar.xz"
 fi
 cd "linux-${KERNELVER}"
-cp "${CURRENTKERNELCONFIG}" .config
-make -j$(nproc) && cp arch/x86/boot/bzImage "${OUTPUTPATH}/${CURRENTKERNELFILENAME}"
+cp "${KERNELCONFIG}" .config
+make -j$(nproc) && cp arch/x86/boot/bzImage "${VMPATH}/bzImage"

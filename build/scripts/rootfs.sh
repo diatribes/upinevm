@@ -23,5 +23,5 @@ cp -v "${SRCPATH}/carl-exit/carl-exit" "${SRCPATH}/overlay"
 cp -r ${SRCPATH}/overlay/* "${CACHEPATH}"/rootfs
 
 cd "${CACHEPATH}"/rootfs
-find . | cpio -o -H newc > "${OUTPUTPATH}"/rootfs.cpio
+find . | cpio -o -H newc > "${VMPATH}"/rootfs.cpio
 

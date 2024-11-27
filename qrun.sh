@@ -8,14 +8,14 @@ qemu-system-x86_64 \
     -nodefaults \
     -cpu host \
     -enable-kvm \
-    -m ${RUNMEM} \
+    -m 512 \
     -device isa-debug-exit,iobase=0x604,iosize=0x04 \
-    -kernel "${OUTPUTPATH}"/bzImage\
+    -kernel "${VMPATH}"/bzImage\
     -nographic \
     -serial none -device isa-serial,chardev=s1 \
     -chardev stdio,id=s1,signal=off \
     -append "notsc" \
-    -initrd "${OUTPUTPATH}"/rootfs.cpio \
-    -virtfs local,path=${INPUTPATH},mount_tag=host0,security_model=none,id=host0 \
-    -virtfs local,path=${OUTPUTPATH},mount_tag=host1,security_model=none,id=host1
+    -initrd "${VMPATH}"/rootfs.cpio \
+    -virtfs local,path=${1},mount_tag=host0,security_model=none,id=host0 \
+    -virtfs local,path=${2},mount_tag=host1,security_model=none,id=host1
 
