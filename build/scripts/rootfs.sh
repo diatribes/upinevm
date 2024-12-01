@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cd "${CACHEPATH}" || exit
+cd "${CACHEPATH}" || exit 1
 
 # get apk.static tool
-curl -o "${CACHEPATH}/apk.static" https://gitlab.alpinelinux.org/api/v4/projects/5/packages/generic/v2.14.0/x86_64/apk.static
+curl -o "${CACHEPATH}/apk.static" https://gitlab.alpinelinux.org/api/v4/projects/5/packages/generic/v2.14.0/x86_64/apk.static || exit 1
 chmod +x "${CACHEPATH}/apk.static"
 
 # init rootfs
