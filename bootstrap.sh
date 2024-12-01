@@ -4,7 +4,7 @@ set -e
 . ./config.sh
 
 if [ "$1" ]; then
-    VMNAME="${1}"
+    export VMNAME="${1}"
 fi
 
 if [ -n "$UPINEVM_CACHEPATH" ]; then
