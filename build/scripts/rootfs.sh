@@ -20,12 +20,16 @@ mkdir -p "${CACHEPATH}/rootfs"
     add < "${SRCPATH}/packages.conf" || exit 1
 
 
+echo "---------------------------------"
+ls -la "${SRCPATH}/overlay" || exit 1
+
 # add custom files
 mkdir -p "${SRCPATH}/overlay/usr/bin"
 cp -v "${CACHEPATH}/sdhcp/sdhcp" "${SRCPATH}/overlay/usr/bin/sdhcp"
 cp -v "${SRCPATH}/dumb-init/dumb-init" "${SRCPATH}/overlay"
 cp -v "${SRCPATH}/carl-exit/carl-exit" "${SRCPATH}/overlay"
-cp -r "${SRCPATH}/overlay/*" "${CACHEPATH}/rootfs"
+
+cp -r "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
 
 cd "${CACHEPATH}/rootfs" || exit
 find . | cpio -o -H newc > "${VMPATH}/rootfs.cpio"
