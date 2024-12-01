@@ -1,5 +1,5 @@
 #!/bin/bash
-cd "${CACHEPATH}" || exit
+cd "${CACHEPATH}" || exit 1
 
 if [ ! -d "sdhcp" ]; then
     git clone git://git.2f30.org/sdhcp
