@@ -18,10 +18,10 @@ mkdir -pv "${VMPATH}"
 mkdir -pv "${VMPATH}/run/input"
 mkdir -pv "${VMPATH}/run/output"
 
-./build/scripts/sdhcp.sh
-./build/scripts/dumb-init.sh
-./build/scripts/carl-exit.sh
-sudo -E ./build/scripts/rootfs.sh
+./build/scripts/sdhcp.sh || exit 1
+./build/scripts/dumb-init.sh || exit 1
+./build/scripts/carl-exit.sh || exit 1
+sudo -E ./build/scripts/rootfs.sh || exit 1
 
 if [ ! -f "${VMPATH}"/bzImage ]; then
     echo "bzImage: not found, building..."
