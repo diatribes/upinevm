@@ -26,6 +26,7 @@ cp -v "${SRCPATH}/carl-exit/carl-exit" "${CACHEPATH}/rootfs/usr/bin/carl-exit"
 cp -r -v "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
 echo "---------------------------------------------"
 ls -la "${CACHEPATH}/rootfs/usr/bin"
+exit 1
 
 cd "${CACHEPATH}/rootfs" || exit 1
 
