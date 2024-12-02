@@ -39,6 +39,6 @@ echo "Rootfs path: ${VMPATH}/rootfs.cpio"
 echo "Rootfs contents:"
 ls -la
 
-sudo find . | cpio -o -H newc | sudo -E tee "${VMPATH}/rootfs.cpio"
+sudo find . | sudo cpio -o -H newc | sudo -E tee "${VMPATH}/rootfs.cpio"
 ls -la "${VMPATH}"
 
