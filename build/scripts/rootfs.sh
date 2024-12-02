@@ -28,10 +28,10 @@ mkdir -p "${CACHEPATH}/rootfs"
 
 # add custom files directly to their final position
 # mkdir -pv "${CACHEPATH}/rootfs/usr/bin"
-cp -av "${CACHEPATH}/sdhcp/sdhcp" "${CACHEPATH}/rootfs/usr/bin/sdhcp"
-cp -av "${SRCPATH}/dumb-init/dumb-init" "${CACHEPATH}/rootfs/usr/bin/dumb-init"
-cp -av "${SRCPATH}/carl-exit/carl-exit" "${CACHEPATH}/rootfs/usr/bin/carl-exit"
-cp -r -av "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
+cp -v "${CACHEPATH}/sdhcp/sdhcp" "${CACHEPATH}/rootfs/usr/bin/sdhcp"
+cp -v "${SRCPATH}/dumb-init/dumb-init" "${CACHEPATH}/rootfs/usr/bin/dumb-init"
+cp -v "${SRCPATH}/carl-exit/carl-exit" "${CACHEPATH}/rootfs/usr/bin/carl-exit"
+cp -r -v "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
 
 cd "${CACHEPATH}/rootfs" || exit 1
 
