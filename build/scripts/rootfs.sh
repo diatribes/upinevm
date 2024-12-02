@@ -24,6 +24,8 @@ cp -v "${CACHEPATH}/sdhcp/sdhcp" "${CACHEPATH}/rootfs/usr/bin/sdhcp"
 cp -v "${SRCPATH}/dumb-init/dumb-init" "${CACHEPATH}/rootfs/usr/bin/dumb-init"
 cp -v "${SRCPATH}/carl-exit/carl-exit" "${CACHEPATH}/rootfs/usr/bin/carl-exit"
 cp -r -v "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
+echo "---------------------------------------------"
+ls -la "${CACHEPATH}/rootfs/usr/bin"
 
 cd "${CACHEPATH}/rootfs" || exit 1
 
