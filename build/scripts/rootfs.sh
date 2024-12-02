@@ -17,10 +17,10 @@ mkdir -p "${CACHEPATH}/rootfs"
     -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/community/ \
     -U --allow-untrusted \
     --root ./rootfs --initdb \
-    add < "${SRCPATH}/packages.conf" || exit 1
+    add `cat ${SRCPATH}/packages.conf` || exit 1
 
 # add custom files directly to their final position
-mkdir -p "${CACHEPATH}/rootfs/usr/bin"
+mkdir -pv "${CACHEPATH}/rootfs/usr/bin"
 cp -v "${CACHEPATH}/sdhcp/sdhcp" "${CACHEPATH}/rootfs/usr/bin/sdhcp"
 cp -v "${SRCPATH}/dumb-init/dumb-init" "${CACHEPATH}/rootfs/usr/bin/dumb-init"
 cp -v "${SRCPATH}/carl-exit/carl-exit" "${CACHEPATH}/rootfs/usr/bin/carl-exit"
