@@ -19,15 +19,7 @@ mkdir -p "${CACHEPATH}/rootfs"
     --root ./rootfs --initdb \
     add $(cat "${SRCPATH}/packages.conf") || exit 1
 
-# add custom files
-# mkdir -pv "${SRCPATH}/overlay/usr/bin"
-# cp -v "${CACHEPATH}/sdhcp/sdhcp" "${SRCPATH}/overlay/usr/bin/sdhcp"
-# cp -v "${SRCPATH}/dumb-init/dumb-init" "${SRCPATH}/overlay"
-# cp -v "${SRCPATH}/carl-exit/carl-exit" "${SRCPATH}/overlay"
-# cp -r -v "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
-
 # add custom files directly to their final position
-# mkdir -pv "${CACHEPATH}/rootfs/usr/bin"
 cp -v "${CACHEPATH}/sdhcp/sdhcp" "${CACHEPATH}/rootfs/usr/bin/sdhcp"
 cp -v "${SRCPATH}/dumb-init/dumb-init" "${CACHEPATH}/rootfs/usr/bin/dumb-init"
 cp -v "${SRCPATH}/carl-exit/carl-exit" "${CACHEPATH}/rootfs/usr/bin/carl-exit"
