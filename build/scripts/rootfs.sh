@@ -27,5 +27,12 @@ cp -v "${SRCPATH}/carl-exit/carl-exit" "${SRCPATH}/overlay"
 sudo cp -r -v "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
 
 cd "${CACHEPATH}/rootfs" || exit 1
-sudo find . | cpio -o -H newc | sudo tee "${VMPATH}/rootfs.cpio"
+
+# check that VMPATH is set
+if [ -z "${VMPATH}" ]; then
+    echo "VMPATH is not set"
+    exit 1
+fi
+
+sudo find . | cpio -o -H newc | sudo -E tee "${VMPATH}/rootfs.cpio"
 
