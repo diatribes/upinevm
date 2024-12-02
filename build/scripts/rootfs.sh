@@ -12,19 +12,19 @@ mkdir -p "${CACHEPATH}/rootfs"
 
 # my shellcheck wants package list in quotes. xargs is used to remove them
 
-sudo -E ./apk.static --arch x86_64 \
+./apk.static --arch x86_64 \
     -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/main/ \
     -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/community/ \
     -U --allow-untrusted \
     --root ./rootfs --initdb \
-    add $(cat "${SRCPATH}/packages.conf") || exit 1
+    add "$(cat ${SRCPATH}/packages.conf)" || exit 1
 
 # add custom files
 mkdir -pv "${SRCPATH}/overlay/usr/bin"
 cp -v "${CACHEPATH}/sdhcp/sdhcp" "${SRCPATH}/overlay/usr/bin/sdhcp"
 cp -v "${SRCPATH}/dumb-init/dumb-init" "${SRCPATH}/overlay"
 cp -v "${SRCPATH}/carl-exit/carl-exit" "${SRCPATH}/overlay"
-sudo cp -r -v "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
+cp -r -v "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
 
 cd "${CACHEPATH}/rootfs" || exit 1
 
@@ -39,6 +39,6 @@ echo "Rootfs path: ${VMPATH}/rootfs.cpio"
 echo "Rootfs contents:"
 ls -la
 
-sudo find . | sudo cpio -o -H newc | sudo -E tee "${VMPATH}/rootfs.cpio"
+find . | cpio -o -H newc > "${VMPATH}/rootfs.cpio"
 ls -la "${VMPATH}"
 
