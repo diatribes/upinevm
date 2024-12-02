@@ -34,5 +34,10 @@ if [ -z "${VMPATH}" ]; then
     exit 1
 fi
 
+echo "Creating rootfs.cpio"
+echo "Rootfs path: ${VMPATH}/rootfs.cpio"
+echo "Rootfs contents:"
+ls -la
+
 sudo find . | cpio -o -H newc | sudo -E tee "${VMPATH}/rootfs.cpio"
 
