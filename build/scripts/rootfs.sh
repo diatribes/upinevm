@@ -12,12 +12,12 @@ mkdir -p "${CACHEPATH}/rootfs"
 
 # my shellcheck wants package list in quotes. xargs is used to remove them
 
-./apk.static --arch x86_64 \
+sudo -E ./apk.static --arch x86_64 \
     -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/main/ \
     -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/community/ \
     -U --allow-untrusted \
     --root ./rootfs --initdb \
-    add < "${SRCPATH}/packages.conf" || exit 1
+    add $(cat "${SRCPATH}/packages.conf") || exit 1
 
 # add custom files
 mkdir -p "${SRCPATH}/overlay/usr/bin"
