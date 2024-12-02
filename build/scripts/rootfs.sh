@@ -17,7 +17,7 @@ mkdir -p "${CACHEPATH}/rootfs"
     -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/community/ \
     -U --allow-untrusted \
     --root ./rootfs --initdb \
-    add $(cat "${SRCPATH}/packages.conf") || exit 1
+    add < "${SRCPATH}/packages.conf" || exit 1
 
 # add custom files directly to their final position
 cp -v "${CACHEPATH}/sdhcp/sdhcp" "${CACHEPATH}/rootfs/usr/bin/sdhcp"
