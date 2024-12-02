@@ -27,5 +27,5 @@ cp -v "${SRCPATH}/carl-exit/carl-exit" "${SRCPATH}/overlay"
 sudo cp -r -v "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
 
 cd "${CACHEPATH}/rootfs" || exit 1
-find . | cpio -o -H newc > "${VMPATH}/rootfs.cpio"
+sudo find . | cpio -o -H newc | sudo tee "${VMPATH}/rootfs.cpio"
 
