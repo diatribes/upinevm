@@ -20,12 +20,12 @@ sudo -E ./apk.static --arch x86_64 \
     add $(cat "${SRCPATH}/packages.conf") || exit 1
 
 # add custom files
-mkdir -p "${SRCPATH}/overlay/usr/bin"
+mkdir -pv "${SRCPATH}/overlay/usr/bin"
 cp -v "${CACHEPATH}/sdhcp/sdhcp" "${SRCPATH}/overlay/usr/bin/sdhcp"
 cp -v "${SRCPATH}/dumb-init/dumb-init" "${SRCPATH}/overlay"
 cp -v "${SRCPATH}/carl-exit/carl-exit" "${SRCPATH}/overlay"
-cp -r -v "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
+sudo cp -r -v "${SRCPATH}/overlay"/* "${CACHEPATH}/rootfs"
 
-cd "${CACHEPATH}/rootfs" || exit
+cd "${CACHEPATH}/rootfs" || exit 1
 find . | cpio -o -H newc > "${VMPATH}/rootfs.cpio"
 
