@@ -109,7 +109,8 @@ preflight_checks() {
 build_sdhcp() {
     cd "${CACHEPATH}"
 
-    if [ ! -d "sdhcp" ]; then
+    if [ ! -f "sdhcp/sdhcp" ]; then
+        rm -rf sdhcp
         git clone git://git.2f30.org/sdhcp
         cd sdhcp
         make CC=musl-gcc LDFLAGS=--static
