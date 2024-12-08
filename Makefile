@@ -28,6 +28,7 @@ clean:
 	rm -rf $(ACT)
 	rm -rf $(ACT_ARTIFACTS)
 	sudo rm -rf ./build/*
+	rm -rf ./images/*
 	rm -f src/carl-exit/carl-exit
 	rm -f src/carl-exit/carl-exit.o
 	rm -f src/dumb-init/dumb-init

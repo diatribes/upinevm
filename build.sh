@@ -2,15 +2,13 @@
 set -e
 
 # build script for bootstrapping upinevm
-# shellcheck disable=SC1091
-. ./config.sh
-
-echo "${KERNELVER}"
-
 if [ "$1" ]; then
     VMNAME="${1}"
 fi
 export VMNAME
+
+# shellcheck disable=SC1091
+. ./config.sh
 
 create_directories() {
     if [ ! -d "${CACHEPATH}" ]; then
@@ -133,15 +131,16 @@ build_rootfs() {
         add $(cat "${SRCPATH}"/packages.conf)
 
     # add custom files
-    cd "${SRCPATH}"/overlay
-    sudo mkdir -pv "usr/bin"
-    sudo cp -v "${CACHEPATH}/sdhcp/sdhcp" "${SRCPATH}/overlay/usr/bin/"
-    sudo cp -v "${SRCPATH}/dumb-init/dumb-init" "${SRCPATH}"/overlay/
-    sudo cp -v "${SRCPATH}/carl-exit/carl-exit" "${SRCPATH}"/overlay/
-    sudo cp -vr "${SRCPATH}/overlay/"* "${CACHEPATH}"/rootfs
-
     cd "${CACHEPATH}"/rootfs
+    sudo cp -vr "${SRCPATH}/overlay/"* .
+    sudo cp -v "${SRCPATH}/dumb-init/dumb-init" .
+    sudo cp -v "${SRCPATH}/carl-exit/carl-exit" .
+    sudo mkdir -pv "usr/bin"
+    sudo cp -v "${CACHEPATH}/sdhcp/sdhcp" ./usr/bin/
+
+    # shellcheck disable=SC2024
     sudo -E find . | sudo -E cpio -o -H newc >"${VMPATH}"/rootfs.cpio
+    sudo rm -rf "${CACHEPATH}"/rootfs
 }
 
 build_kernel() {

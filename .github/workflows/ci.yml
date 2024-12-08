@@ -38,8 +38,10 @@ jobs:
           env | sort | awk '{print $1}'
 
       - name: build ${{ matrix.vmname }}
+        # env:
+        #   KERNELVER: 6.11
         run: |
-          . ./config.sh && ./build.sh ${{ matrix.vmname }}
+          ./build.sh ${{ matrix.vmname }}
 
       - name: cache ${{ matrix.vmname }}
         uses: actions/upload-artifact@v4
