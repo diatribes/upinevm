@@ -13,6 +13,9 @@ src/overlay/usr/bin/dropbearkey
 src/overlay/usr/bin/pktsnif
 src/overlay/usr/bin/vi
 
+trash
+build/images
+
 *.cpio
 *.gz
 *.xz

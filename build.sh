@@ -44,6 +44,16 @@ preflight_checks() {
         exit 1
     fi
 
+    if [ ! -f "${PACKAGESPATH}" ]; then
+        echo "Packages file does not exist: ${PACKAGESPATH}"
+        exit 1
+    fi
+
+    if [ ! -f "${BOOTSCRIPT}" ]; then
+        echo "Boot script does not exist: ${BOOTSCRIPT}"
+        exit 1
+    fi
+
     if [ -z "${KERNELVER}" ]; then
         echo "Kernel version is not set"
         exit 1
@@ -128,7 +138,7 @@ build_rootfs() {
         -X http://dl-cdn.alpinelinux.org/alpine/latest-stable/community/ \
         -U --allow-untrusted \
         --root ./rootfs --initdb \
-        add $(cat "${SRCPATH}"/packages.conf)
+        add $(cat "${PACKAGESPATH}")
 
     # add custom files
     cd "${CACHEPATH}"/rootfs
@@ -140,7 +150,7 @@ build_rootfs() {
 
     # shellcheck disable=SC2024
     sudo -E find . | sudo -E cpio -o -H newc >"${VMPATH}"/rootfs.cpio
-    sudo rm -rf "${CACHEPATH}"/rootfs
+    sudo rm -rvf "${CACHEPATH}"/rootfs
 }
 
 build_kernel() {
@@ -152,9 +162,13 @@ build_kernel() {
             tar xvf "linux-${KERNELVER}.tar.xz"
         fi
         cd "linux-${KERNELVER}"
-        cp "${KERNELCONFIG}" .config
+        cp -v "${KERNELCONFIG}" .config
         make -j"$(nproc)" && cp arch/x86/boot/bzImage "${VMPATH}"/bzImage
     fi
+}
+
+build_bootscript() {
+    cp -v "${BOOTSCRIPT}" "${VMPATH}"/boot.sh
 }
 
 clean() {
@@ -168,3 +182,4 @@ build_dumb_init
 build_carl_exit
 build_rootfs
 build_kernel
+build_bootscript
