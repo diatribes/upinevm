@@ -1,0 +1,35 @@
+name: upinevm-builder and build-upina
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-base:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: musl-gcc compile and strip
+        run: |
+          # TODO NOT LIKE THIS (ubuntu/debian specific)
+          if ! which musl-gcc ; then
+            sudo apt-get update && sudo apt-get install -y musl-tools libelf-dev nasm
+          fi
+
+          if ! which flex ; then
+            sudo apt-get update && sudo apt-get install -y flex bison
+          fi
+
+      - name: build upinevm
+        run: |
+          . ./config.sh && ./build.sh
+
+      - name: cleanup container
+        run: |
+          sudo rm -rf ./build/cache/*

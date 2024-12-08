@@ -1,0 +1,4 @@
+--action-offline-mode
+-P ubuntu-latest=-self-hosted
+-W .github/workflows
+--artifact-server-path /tmp/act_artifacts
