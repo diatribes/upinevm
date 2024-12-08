@@ -1,4 +1,4 @@
-name: upinevm-builder and build-upina
+name: upinevm CI
 
 on:
   push:
@@ -10,6 +10,11 @@ on:
 
 jobs:
   build-base:
+    strategy:
+      matrix:
+        vmname:
+          - gccvm
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -26,15 +31,15 @@ jobs:
             sudo apt-get update && sudo apt-get install -y flex bison
           fi
 
-      - name: build upinevm
+      - name: build ${{ matrix.vmname }}
         run: |
-          . ./config.sh && ./build.sh
+          . ./config.sh && ./build.sh ${{ matrix.vmname }}
 
-      - name: cache upinevm
+      - name: cache ${{ matrix.vmname }}
         uses: actions/upload-artifact@v2
         with:
-          name: upinevm
-          path: ./build/image/gccvm
+          name: ${{ matrix.vmname }}
+          path: ./build/images/${{ matrix.vmname }}
 
       - name: cleanup container
         run: |
