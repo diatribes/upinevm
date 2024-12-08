@@ -1,15 +1,13 @@
 #!/bin/sh
 set -e
 
-export KERNELVER="${KERNELVER:-6.12}"
+KERNELVER="${KERNELVER:-6.12}"
+export KERNELVER
 
-if [ -z "${VMNAME}" ]; then
-    if [ "$1" ]; then
-        VMNAME="${1}"
-    else
-        echo "VMNAME must be set"
-        exit 1
-    fi
+VMNAME="${VMNAME:-gccvm}"
+# if $1 is set, use it as VMNAME
+if [ "$1" ]; then
+    VMNAME="${1}"
 fi
 export VMNAME
 

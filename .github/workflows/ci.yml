@@ -30,6 +30,12 @@ jobs:
         run: |
           . ./config.sh && ./build.sh
 
+      - name: cache upinevm
+        uses: actions/upload-artifact@v2
+        with:
+          name: upinevm
+          path: ./build/image/gccvm
+
       - name: cleanup container
         run: |
           sudo rm -rf ./build/cache/*
