@@ -21,8 +21,11 @@ $(ACT):
 	if [ ! -f $(ACT) ]; then curl --proto '=https' --tlsv1.2 -sSf ${ACT_URL} | bash; fi
 
 
-build: $(ACT)
+ci: $(ACT)
 	$(ACTCMD)
+
+build:
+	./build.sh
 
 clean:
 	rm -rf $(ACT)
