@@ -27,6 +27,12 @@ ci: $(ACT)
 build:
 	./build.sh
 
+boot:
+	./scripts/boot.sh
+
+menuconfig:
+	./scripts/menuconfig.sh
+
 clean:
 	rm -rf $(ACT)
 	rm -rf $(ACT_ARTIFACTS)
