@@ -49,6 +49,6 @@ jobs:
           name: ${{ matrix.vmname }}
           path: ./build/images/${{ matrix.vmname }}
 
-      - name: cleanup container
+      - name: cleanup container cache with sudo because rootfs privs
         run: |
           sudo rm -rf ./build/cache/*
