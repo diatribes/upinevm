@@ -1,0 +1,54 @@
+name: upinevm CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-base:
+    strategy:
+      matrix:
+        vmname:
+          - gccvm
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: musl-gcc compile and strip
+        run: |
+          # TODO NOT LIKE THIS (ubuntu/debian specific)
+          if ! which musl-gcc ; then
+            sudo apt-get update && sudo apt-get install -y musl-tools libelf-dev nasm
+          fi
+
+          if ! which flex ; then
+            sudo apt-get update && sudo apt-get install -y flex bison
+          fi
+
+      - name: print env
+        run: |
+          echo ${{ matrix.vmname }}
+          echo $(uname -a)
+          env | sort | awk '{print $1}'
+
+      - name: build ${{ matrix.vmname }}
+        # env:
+        #   KERNELVER: 6.11
+        run: |
+          ./build.sh ${{ matrix.vmname }}
+
+      - name: cache ${{ matrix.vmname }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.vmname }}
+          path: ./build/images/${{ matrix.vmname }}
+
+      - name: cleanup container cache with sudo because rootfs privs
+        run: |
+          sudo rm -rf ./build/cache/*

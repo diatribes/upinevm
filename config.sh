@@ -1,8 +1,25 @@
 #!/bin/sh
-export VMNAME="gccvm"
-export VMPATH="${VMPATH:-$(realpath -m ./images/${VMNAME})}"
-export KERNELVER="${KERNELVER:-6.12}"
-export KERNELCONFIG="${KERNELCONFIG:-$(realpath ./src/kernel-configs/qemu-small-virtiofs-no-tcp)}"
-export CACHEPATH="${CACHEPATH:-$(realpath -m ./build/cache/${VMNAME})}"
-export SRCPATH="${SRCPATH:-$(realpath ./src)}"
+KERNELVER="${KERNELVER:-6.12}"
+export KERNELVER
 
+DEFAULT_VMNAME="gccvm"
+VMNAME="${VMNAME:-$DEFAULT_VMNAME}"
+export VMNAME
+
+SRCPATH="${SRCPATH:-$(realpath ./src)}"
+export SRCPATH
+
+BUILDPATH="${BUILDPATH:-$(realpath -m ./build)}"
+export BUILDPATH
+
+IMAGESPATH="${IMAGESPATH:-${BUILDPATH}/images}"
+VMPATH="${VMPATH:-${IMAGESPATH}/${VMNAME}}"
+export VMPATH
+
+BUILDCACHE="${BUILDCACHE:-${BUILDPATH}/cache}"
+CACHEPATH="${CACHEPATH:-${BUILDCACHE}/${VMNAME}}"
+export CACHEPATH
+
+KERNELSPATH="${KERNELSPATH:-${SRCPATH}/kernel-configs}"
+KERNELCONFIG="${KERNELCONFIG:-${KERNELSPATH}/qemu-small-virtiofs-no-tcp}"
+export KERNELCONFIG
