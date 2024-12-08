@@ -2,7 +2,10 @@
 set -e
 
 # build script for bootstrapping upinevm
-# config variables set in config.sh. . ./config.sh first
+# shellcheck disable=SC1091
+. ./config.sh
+
+echo "${KERNELVER}"
 
 if [ "$1" ]; then
     VMNAME="${1}"
@@ -43,7 +46,7 @@ preflight_checks() {
         exit 1
     fi
 
-    if [ -n "${KERNELVER}" ]; then
+    if [ -z "${KERNELVER}" ]; then
         echo "Kernel version is not set"
         exit 1
     fi
