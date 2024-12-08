@@ -31,6 +31,12 @@ jobs:
             sudo apt-get update && sudo apt-get install -y flex bison
           fi
 
+      - name: print env
+        run: |
+          echo ${{ matrix.vmname }}
+          echo $(uname -a)
+          env | sort | awk '{print $1}'
+
       - name: build ${{ matrix.vmname }}
         run: |
           . ./config.sh && ./build.sh ${{ matrix.vmname }}

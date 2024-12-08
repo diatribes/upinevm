@@ -1,32 +1,13 @@
 #!/bin/sh
 set -e
 
-KERNELVER="${KERNELVER:-6.12}"
-export KERNELVER
+# build script for bootstrapping upinevm
+# config variables set in config.sh. . ./config.sh first
 
-VMNAME="${VMNAME:-gccvm}"
-# if $1 is set, use it as VMNAME
 if [ "$1" ]; then
     VMNAME="${1}"
 fi
 export VMNAME
-
-# Set and export SRCPATH
-SRCPATH="${SRCPATH:-$(realpath ./src)}"
-export SRCPATH
-
-# TODO: fixme kernel config could match vmname and be found automatically
-KERNELCONFIG="${SRCPATH}/kernel-configs/qemu-small-virtiofs-no-tcp"
-export KERNELCONFIG
-
-BUILDPATH="${BUILDPATH:-$(realpath -m ./build)}"
-export BUILDPATH
-VMPATH="${BUILDPATH}/images/${VMNAME}"
-export VMPATH
-CACHEPATH="${BUILDPATH}/cache/${VMNAME}"
-export CACHEPATH
-
-### Create directories
 
 create_directories() {
     if [ ! -d "${CACHEPATH}" ]; then
@@ -59,6 +40,11 @@ preflight_checks() {
 
     if [ ! -f "${KERNELCONFIG}" ]; then
         echo "Kernel config file does not exist: ${KERNELCONFIG}"
+        exit 1
+    fi
+
+    if [ -n "${KERNELVER}" ]; then
+        echo "Kernel version is not set"
         exit 1
     fi
 
