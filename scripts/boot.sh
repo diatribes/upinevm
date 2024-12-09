@@ -21,6 +21,14 @@ if [ ! -d "${VMPATH}" ]; then
     exit 1
 fi
 
+echo "SPECSPATH: ${SPECSPATH}"
+echo "VMNAME: ${VMNAME}"
+echo "VMPATH: ${VMPATH}"
+
+cp "${SPECSPATH}/${VMNAME}/boot.sh" "${VMPATH}/boot.sh"
+rm -rf "${VMPATH}/input"
+cp -r "${SPECSPATH}/${VMNAME}/input" "${VMPATH}/input"
 cd "${VMPATH}" || exit 1
+
 ./boot.sh
 
