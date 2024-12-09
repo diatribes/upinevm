@@ -23,6 +23,14 @@ if [ ! -d "$OUTPUT_DIR" ]; then
     mkdir -pv "$OUTPUT_DIR"
 fi
 
+if [ ! -f "$INPUT_DIR/run.sh" ]; then
+    echo "Input directory does not contain run.sh script"
+    exit 1
+fi
+
+echo "Running $INPUT_DIR/run.sh"
+echo "Output will be saved to $OUTPUT_DIR"
+
 qemu-system-x86_64 \
     -display none \
     -no-reboot \
@@ -39,4 +47,5 @@ qemu-system-x86_64 \
     -append "notsc" \
     -initrd ./rootfs.cpio \
     -virtfs local,path="$INPUT_DIR",mount_tag=host0,security_model=none,id=host0 \
-    -virtfs local,path="$OUTPUT_DIR",mount_tag=host1,security_model=none,id=host1
+    -virtfs local,path="$OUTPUT_DIR",mount_tag=host1,security_model=none,id=host1 \
+    -nic user,model=virtio-net-pci,hostfwd=tcp::8080-:8080

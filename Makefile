@@ -25,7 +25,7 @@ ci: $(ACT)
 	$(ACTCMD)
 
 build:
-	./build.sh
+	./bootstrap.sh
 
 boot:
 	./scripts/boot.sh

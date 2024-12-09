@@ -75,3 +75,4 @@ dkms.conf
 .vscode/settings.json
 .vscode/tasks.json
 bin/act
+vmspecs/fossil/kernel-config.old

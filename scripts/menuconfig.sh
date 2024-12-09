@@ -15,7 +15,7 @@ export VMNAME
 # shellcheck disable=SC1091
 . ./config.sh
 
-if [ ! -n "${CACHEPATH}" ]; then
+if [ -z "${CACHEPATH}" ]; then
     echo "CACHEPATH is not set"
     exit 1
 fi
@@ -26,7 +26,7 @@ if [ ! -d "${CACHEPATH}" ]; then
     exit 1
 fi
 
-if [ ! -n "${KERNELCONFIG}" ]; then
+if [ -z "${KERNELCONFIG}" ]; then
     echo "KERNELCONFIG is not set"
     exit 1
 fi
