@@ -29,6 +29,7 @@ jobs:
 
       - name: touch
         run: |
+          mkdir -pv ./build/images/${{ inputs.vmname }}
           touch ./build/images/${{ matrix.vmname }}/test.txt
 
       # - name: build ${{ inputs.vmname }}
