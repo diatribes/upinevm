@@ -45,10 +45,10 @@ jobs:
       - name: package ${{ inputs.vmname }}
         run: |
           mkdir -pv ./dist
-          tar -czvf ./dist/${{ inputs.vmname }}.tar.gz ./build/images/${{ inputs.vmname }}
+          zip -r ./dist/${{ inputs.vmname }}.zip ./build/images/${{ inputs.vmname }}
 
       - name: Release ${{ inputs.vmname }}
         uses: softprops/action-gh-release@v2
-        # if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: ./dist/*
