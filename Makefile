@@ -12,6 +12,8 @@ ACTCMD := $(ACT)
 #  -s GITHUB_TOKEN=$(GITHUB_TOKEN)
 ACT_URL := https://raw.githubusercontent.com/nektos/act/master/install.sh
 # ACT_ARTIFACTS := /tmp/act_artifacts/1
+# TIMESTAMP := $(shell date +%Y%m%d%H%M%S)
+TIMESTAMP := 'v0.1.0'
 
 all: build
 
@@ -32,6 +34,14 @@ boot:
 
 menuconfig:
 	./scripts/menuconfig.sh
+
+release:
+	git tag -d $(TIMESTAMP) || true
+	git push origin :refs/tags/$(TIMESTAMP) || true
+	git commit --allow-empty -m "Build $(TIMESTAMP)"
+	git tag -a $(TIMESTAMP) -m "Release Tag $(TIMESTAMP)"
+	git push origin $(TIMESTAMP)
+	gh release create $(TIMESTAMP) -t $(TIMESTAMP) -n "Release $(TIMESTAMP)"
 
 clean:
 	rm -rf $(ACT)
