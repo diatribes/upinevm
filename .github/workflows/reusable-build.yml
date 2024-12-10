@@ -27,20 +27,14 @@ jobs:
           echo $(uname -a)
           env | sort | awk '{print $1}'
 
-      - name: touch
-        run: |
-          mkdir -pv ./build/images/${{ inputs.vmname }}
-          touch ./build/images/${{ inputs.vmname }}/test.txt
-
-      # - name: build ${{ inputs.vmname }}
+      # - name: touch
       #   run: |
-      #     ./build.sh ${{ inputs.vmname }}
+      #     mkdir -pv ./build/images/${{ inputs.vmname }}
+      #     touch ./build/images/${{ inputs.vmname }}/test.txt
 
-      # - name: cache ${{ inputs.vmname }}
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ${{ inputs.vmname }}
-      #     path: ./build/images/${{ inputs.vmname }}
+      - name: build ${{ inputs.vmname }}
+        run: |
+          ./build.sh ${{ inputs.vmname }}
 
       - name: package ${{ inputs.vmname }}
         run: |
