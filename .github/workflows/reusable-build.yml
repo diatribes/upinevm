@@ -1,4 +1,4 @@
-name: Reusable Build
+name: reusable-build
 
 on:
   workflow_call:
@@ -27,9 +27,13 @@ jobs:
           echo $(uname -a)
           env | sort | awk '{print $1}'
 
-      - name: build ${{ inputs.vmname }}
+      - name: touch
         run: |
-          ./build.sh ${{ inputs.vmname }}
+          touch ./build/images/${{ matrix.vmname }}/test.txt
+
+      # - name: build ${{ inputs.vmname }}
+      #   run: |
+      #     ./build.sh ${{ inputs.vmname }}
 
       - name: cache ${{ inputs.vmname }}
         uses: actions/upload-artifact@v4

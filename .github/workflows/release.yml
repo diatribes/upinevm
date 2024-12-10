@@ -24,25 +24,22 @@ jobs:
   release:
     needs: build-base
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        vmname:
-          - gccvm
-          - minimal
-          - fossil
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ needs.build-base.outputs.vmname }}
-      - name: ls
+          path: ./artifacts
+          merge-multiple: true
+
+      - name: List artifact
         run: |
-          ls -l
+          ls -l ./artifacts
 
       - name: release
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ needs.build-base.outputs.vmname }}
+          files: ./artifacts/*
           token: ${{ github.token }}
