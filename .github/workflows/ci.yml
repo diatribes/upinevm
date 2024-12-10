@@ -2,6 +2,8 @@ name: upinevm CI
 
 on:
   push:
+    tags:
+      - "v*.*.*"
     branches:
       - main
   pull_request:
@@ -54,3 +56,6 @@ jobs:
       - name: cleanup container cache with sudo because rootfs privs
         run: |
           sudo rm -rf ./build/cache/*
+
+      - name: release
+        uses: softprops/action-gh-release@v2
