@@ -9,13 +9,30 @@ on:
 
 jobs:
   build-base:
-    strategy:
-      matrix:
-        vmname:
-          - gccvm
-          - minimal
-          - fossil
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    uses: ./.github/workflows/reusable-build.yml
-    with:
-      vmname: ${{ matrix.vmname }}
+      - name: musl-gcc compile and strip
+        run: |
+          sudo apt-get update && sudo apt-get install -y musl-tools libelf-dev nasm
+          if ! which flex ; then
+            sudo apt-get update && sudo apt-get install -y flex bison
+          fi
+
+      - name: print env
+        run: |
+          echo ${{ inputs.vmname }}
+          echo $(uname -a)
+          env | sort | awk '{print $1}'
+
+      - name: build ${{ inputs.vmname }}
+        run: |
+          ./build.sh ${{ inputs.vmname }}
+
+      - name: cache ${{ inputs.vmname }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.vmname }}
+          path: ./build/images/${{ inputs.vmname }}
