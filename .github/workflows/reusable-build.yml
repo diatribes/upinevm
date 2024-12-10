@@ -1,12 +1,11 @@
-name: upinevm CI
+name: Reusable Build
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      vmname:
+        required: true
+        type: string
 
 jobs:
   build-base:
