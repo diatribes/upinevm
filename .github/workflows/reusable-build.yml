@@ -41,3 +41,9 @@ jobs:
         with:
           name: ${{ inputs.vmname }}
           path: ./build/images/${{ inputs.vmname }}
+
+      - name: Release ${{ inputs.vmname }}
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: ./build/images/${{ inputs.vmname }}/*
