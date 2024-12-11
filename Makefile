@@ -41,7 +41,7 @@ release:
 	git commit --allow-empty -m "Build $(TIMESTAMP)"
 	git tag -a $(TIMESTAMP) -m "Release Tag $(TIMESTAMP)"
 	git push origin $(TIMESTAMP)
-	gh release create $(TIMESTAMP) -t $(TIMESTAMP) -n "Release $(TIMESTAMP)"
+	# gh release create $(TIMESTAMP) -t $(TIMESTAMP) -n "Release $(TIMESTAMP)"
 
 clean:
 	rm -rf $(ACT)
