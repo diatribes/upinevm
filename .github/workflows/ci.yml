@@ -38,14 +38,14 @@ jobs:
           echo $(uname -a)
           env | sort | awk '{print $1}'
 
-      - name: touch
-        run: |
-          mkdir -pv ./build/images/${{ matrix.vmname }}
-          touch ./build/images/${{ matrix.vmname }}/test.txt
-
-      # - name: build ${{ matrix.vmname }}
+      # - name: touch
       #   run: |
-      #     ./build.sh ${{ matrix.vmname }}
+      #     mkdir -pv ./build/images/${{ matrix.vmname }}
+      #     touch ./build/images/${{ matrix.vmname }}/test.txt
+
+      - name: build ${{ matrix.vmname }}
+        run: |
+          ./build.sh ${{ matrix.vmname }}
 
       - name: package ${{ matrix.vmname }}
         run: |
